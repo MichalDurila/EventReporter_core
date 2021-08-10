@@ -12,13 +12,14 @@
 /**
  *  @file NvmMem.c
  *  @author esc
- *  @brief  This module is used to write data into the non-volatile memory.
+ *  @brief This module is used to write data into the non-volatile memory.
  *
  * Copyright 2021 esc Aerospace s.r.o., All rights reserved.
  */
 
 #include "NvmMem.h"
 #include "Modules.h"
+#include "Common.h"
 
 
 #define NVM_ADDRESS_LOW_LIM     0x00001000
@@ -30,7 +31,7 @@ static const Modules_Id_e m_eModuleId = E_MODULES_ID_NVMMEM;
 
 /**
  * @brief Writes data to the non-volatile memory at the specific address
- * 
+ *
  * @param in_u32Address     Target memory address
  * @param in_pu8Data        Data to be written
  * @param in_u32DataSize    Size of the data in bytes
