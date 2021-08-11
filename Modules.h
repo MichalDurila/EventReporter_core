@@ -23,9 +23,12 @@
 /* Typedef containing all modules */
 typedef enum
 {
-	E_MODULES_ID_COMM                    = 1U,
-	E_MODULES_ID_STORAGE                 = 2U,
-	E_MODULES_ID_NVMMEM                  = 3U
+    E_MODULES_ID_COMM                    = 1U,
+    E_MODULES_ID_STORAGE                 = 2U,
+    E_MODULES_ID_NVMMEM                  = 3U,
+    E_MODULES_ID_COMMON                  = 4U,
+    E_MODULES_ID_MODULES                 = 5U,
+    E_MODULES_ID_EVENTHANDLER            = 6U
 } Modules_Id_e;
 
 #endif /* __MODULES_H__ */
