@@ -22,7 +22,14 @@
 
 #define NULL ((void *)0)
 
+typedef enum
+{
+    false = 0U,
+    true  = 1U
+} boolean;
+
 typedef unsigned char uint8_t;
 typedef unsigned int uint32_t;
+typedef double float64_t;
 
 #endif /* COMMON_H_ */
