@@ -10,26 +10,32 @@
  */
 
 /**
- *  @file Common.h
+ *  @file Timing.h
  *  @author Michal Durila
- *  @brief This module defines some data types and NULL pointer.
+ *  @brief This module provides a method, which gives the amount of time elapsed from the start in seconds.
  *
  * Copyright 2021 Michal Durila, All rights reserved.
  */
 
-#ifndef __COMMON_H__
-#define __COMMON_H__
+#ifndef __TIMING_H__
+#define __TIMING_H__
 
-#define NULL ((void *)0)
+#include "Common.h"
 
-typedef enum
-{
-    E_FALSE = 0U,
-    E_TRUE  = 1U
-} boolean;
+#define TIMING_INITIAL_TIME 0.0
 
-typedef unsigned char uint8_t;
-typedef unsigned int uint32_t;
-typedef double float64_t;
+/**
+ * @brief Gives the amount of time elapsed from the start of the system
+ *
+ * @return Elapsed time in seconds
+ */
+float64_t Timing_GetTime(void);
 
-#endif /* __COMMON_H__ */
+/**
+ * @brief Sets the amount of time elapsed from the start of the system
+ *
+ * @param in_f64Time   Time in seconds to be set
+ */
+void Timing_SetTime(float64_t in_f64Time);
+
+#endif /* __TIMING_H__ */

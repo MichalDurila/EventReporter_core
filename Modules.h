@@ -28,7 +28,9 @@ typedef enum
     E_MODULES_ID_NVMMEM                  = 3U,
     E_MODULES_ID_COMMON                  = 4U,
     E_MODULES_ID_MODULES                 = 5U,
-    E_MODULES_ID_EVENTHANDLER            = 6U
+    E_MODULES_ID_EVENTHANDLER            = 6U,
+    E_MODULES_ID_SYSTEMRESET             = 7U,
+    E_MODULES_ID_TIMING                  = 8U
 } Modules_Id_e;
 
 #endif /* __MODULES_H__ */

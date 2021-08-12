@@ -10,26 +10,25 @@
  */
 
 /**
- *  @file Common.h
+ *  @file SystemReset.c
  *  @author Michal Durila
- *  @brief This module defines some data types and NULL pointer.
+ *  @brief This module provides a method to reset the system.
  *
  * Copyright 2021 Michal Durila, All rights reserved.
  */
 
-#ifndef __COMMON_H__
-#define __COMMON_H__
+#include "SystemReset.h"
+#include "Modules.h"
 
-#define NULL ((void *)0)
 
-typedef enum
+/* Module ID assignment */
+static const Modules_Id_e m_eModuleId = E_MODULES_ID_SYSTEMRESET;
+
+
+/**
+ * @brief Resets the whole system to the default state
+ */
+void SystemReset_ResetSystem(void)
 {
-    E_FALSE = 0U,
-    E_TRUE  = 1U
-} boolean;
-
-typedef unsigned char uint8_t;
-typedef unsigned int uint32_t;
-typedef double float64_t;
-
-#endif /* __COMMON_H__ */
+    return;
+}
