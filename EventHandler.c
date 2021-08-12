@@ -20,12 +20,15 @@
 #include "EventHandler.h"
 #include "Timing.h"
 #include "SystemReset.h"
+#include "Comm.h"
+#include "Storage.h"
 
 
 #define NUMBER_OF_EVENT_SEVERITIES       3U
 #define OVERFLOW_LIMIT_IN_SECONDS        10.0
 #define REENABLE_REPORTING_AFTER_MINUTES 10.0
 #define SECONDS_IN_MINUTE                60
+#define EVENT_DATA_SIZE_IN_BYTES         28U
 
 /* Module ID assignment */
 static const Modules_Id_e m_eModuleId = E_MODULES_ID_EVENTHANDLER;
@@ -136,13 +139,13 @@ void EventHandler_GenerateEventReportUserData(Modules_Id_e in_eModuleId, uint32_
         else
         {
             /* Someone forgot to change (increment) the definition of NUMBER_OF_EVENT_SEVERITIES when adding some new enums */
-            EventHandler_ComposeAndSendReport(f64CurrentTimeInSeconds, m_eModuleId, E_EVENT_INSTANCE_EVENTHANDLER_GENERATEEVENTREPORTUSERDATA_SEVERITIES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, 0U);
+            EventHandler_ComposeAndSendReport(f64CurrentTimeInSeconds, m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GENERATEEVENTREPORTUSERDATA_SEVERITIES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, 0U);
         }
     }
     else
     {
         /* Someone forgot to change (increment) the definition of EVENTHANDLER_NUMBER_OF_EVENT_TYPES when adding some new enums */
-        EventHandler_ComposeAndSendReport(f64CurrentTimeInSeconds, m_eModuleId, E_EVENT_INSTANCE_EVENTHANDLER_GENERATEEVENTREPORTUSERDATA_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, 0U);
+        EventHandler_ComposeAndSendReport(f64CurrentTimeInSeconds, m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GENERATEEVENTREPORTUSERDATA_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, 0U);
     }
 
     return;
@@ -239,6 +242,11 @@ boolean EventHandler_GetStandbyMode(EventHandler_Type_e in_eType)
  */
 void EventHandler_ComposeAndSendReport(float64_t in_f64CurrentTimeInSeconds, Modules_Id_e in_eModuleId, uint32_t in_u32LocationInModule, EventHandler_Severity_e in_eSeverity, EventHandler_Type_e in_eType, uint32_t in_u32AdditionalData)
 {
+    uint8_t au8EventData[EVENT_DATA_SIZE_IN_BYTES];
+    uint8_t *pu8EventData = ((uint8_t *) &au8EventData);
+
+    Comm_SendEventReport(pu8EventData, EVENT_DATA_SIZE_IN_BYTES);
+    Storage_StoreEventReport(pu8EventData, EVENT_DATA_SIZE_IN_BYTES);
 
     return;
 }

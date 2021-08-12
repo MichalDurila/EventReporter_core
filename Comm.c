@@ -23,6 +23,8 @@
 #include <stdio.h>
 
 
+#define EXPECTED_EVENT_DATA_SIZE_IN_BYTES 28U
+
 /* Module ID assignment */
 static const Modules_Id_e m_eModuleId = E_MODULES_ID_COMM;
 
@@ -35,7 +37,14 @@ static const Modules_Id_e m_eModuleId = E_MODULES_ID_COMM;
  */
 void Comm_SendEventReport(const uint8_t *in_pu8EventData, uint32_t in_u32DataSize)
 {
-    printf("Comm_SendEventReport: %u\n", m_eModuleId);
+    if (EXPECTED_EVENT_DATA_SIZE_IN_BYTES == in_u32DataSize)
+    {
+        printf("Comm_SendEventReport: TRUE, Module ID = %u\n", m_eModuleId);
+    }
+    else
+    {
+        printf("Comm_SendEventReport: FALSE, Module ID = %u\n", m_eModuleId);
+    }
 
     return;
 }
