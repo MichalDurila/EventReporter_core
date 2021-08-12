@@ -39,11 +39,11 @@ void Comm_SendEventReport(const uint8_t *in_pu8EventData, uint32_t in_u32DataSiz
 {
     if (EXPECTED_EVENT_DATA_SIZE_IN_BYTES == in_u32DataSize)
     {
-        printf("Comm_SendEventReport: TRUE, Module ID = %u\n", m_eModuleId);
+        printf("Comm_SendEventReport: Module ID = %u\n", m_eModuleId);
     }
     else
     {
-        printf("Comm_SendEventReport: FALSE, Module ID = %u\n", m_eModuleId);
+        printf("Comm_SendEventReport: Failure: EXPECTED_EVENT_DATA_SIZE_IN_BYTES does not match in_u32DataSize\n");
     }
 
     return;

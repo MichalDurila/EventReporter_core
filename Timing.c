@@ -19,10 +19,17 @@
 
 #include "Timing.h"
 #include "Modules.h"
+#include "EventHandler.h"
 
 
 /* Module ID assignment */
 static const Modules_Id_e m_eModuleId = E_MODULES_ID_TIMING;
+
+/* Typedef containing all defined event instances in this module */
+typedef enum
+{
+    E_EVENT_INSTANCE_TIMING_SETTIME_NEGATIVETIME   = 0U
+} EventInstance_e;
 
 /* Auxiliary variable for testing purposes */
 static float64_t m_f64TimeToBeReturned = TIMING_INITIAL_TIME;
@@ -45,6 +52,14 @@ float64_t Timing_GetTime(void)
  */
 void Timing_SetTime(float64_t in_f64Time)
 {
-    m_f64TimeToBeReturned = in_f64Time;
+    if (TIMING_INITIAL_TIME > in_f64Time)
+    {
+        EventHandler_GenerateEventReport(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_TIMING_SETTIME_NEGATIVETIME, E_EVENTHANDLER_SEVERITY_LOW, E_EVENTHANDLER_TYPE_ADDRESSRANGE);
+    }
+    else
+    {
+        m_f64TimeToBeReturned = in_f64Time;
+    }
+
     return;
 }

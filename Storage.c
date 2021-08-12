@@ -39,11 +39,11 @@ void Storage_StoreEventReport(const uint8_t *in_pu8EventData, uint32_t in_u32Dat
 {
     if (EXPECTED_EVENT_DATA_SIZE_IN_BYTES == in_u32DataSize)
     {
-        printf("Storage_StoreEventReport: TRUE, Module ID = %u\n", m_eModuleId);
+        printf("Storage_StoreEventReport: Module ID = %u\n", m_eModuleId);
     }
     else
     {
-        printf("Storage_StoreEventReport: FALSE, Module ID = %u\n", m_eModuleId);
+        printf("Storage_StoreEventReport: Failure: EXPECTED_EVENT_DATA_SIZE_IN_BYTES does not match in_u32DataSize\n");
     }
 
     return;

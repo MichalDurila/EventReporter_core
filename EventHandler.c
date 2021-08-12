@@ -45,9 +45,10 @@ static const float64_t m_f64ReenableReportingAfterSeconds = (SECONDS_IN_MINUTE *
 static uint32_t m_au32EventsCounter[NUMBER_OF_EVENT_SEVERITIES][EVENTHANDLER_NUMBER_OF_EVENT_TYPES];
 static float64_t m_af64LastTime[EVENTHANDLER_NUMBER_OF_EVENT_TYPES];
 static boolean m_abIsStandbyMode[EVENTHANDLER_NUMBER_OF_EVENT_TYPES];
+static boolean m_abIsEnabledReporting[EVENTHANDLER_NUMBER_OF_EVENT_TYPES];
 
-void EventHandler_InitializeBeforeReset(void);
-void EventHandler_ComposeAndSendReport(float64_t in_f64CurrentTimeInSeconds, Modules_Id_e in_eModuleId, uint32_t in_u32LocationInModule, EventHandler_Severity_e in_eSeverity, EventHandler_Type_e in_eType, uint32_t in_u32AdditionalData);
+static void EventHandler_InitializeBeforeReset(void);
+static void EventHandler_ComposeAndSendReport(float64_t in_f64CurrentTimeInSeconds, Modules_Id_e in_eModuleId, uint32_t in_u32LocationInModule, EventHandler_Severity_e in_eSeverity, EventHandler_Type_e in_eType, uint32_t in_u32AdditionalData);
 
 
 /**
@@ -85,7 +86,7 @@ void EventHandler_GenerateEventReportUserData(Modules_Id_e in_eModuleId, uint32_
         if (NUMBER_OF_EVENT_SEVERITIES > in_eSeverity)
         {
             /* SRS-013 */
-            if (E_TRUE == abIsEnabledReporting[in_eType])
+            if (E_TRUE == m_abIsEnabledReporting[in_eType])
             {
                 /* SRS-008 */
                 if ((E_EVENTHANDLER_TYPE_NULLARGUMENT == in_eType) && (E_EVENTHANDLER_SEVERITY_MEDIUM > in_eSeverity))
@@ -152,6 +153,27 @@ void EventHandler_GenerateEventReportUserData(Modules_Id_e in_eModuleId, uint32_
 }
 
 /**
+ * @brief Composes the event report (data), sends it and stores it
+ *
+ * @param in_f64CurrentTimeInSeconds Current time from system start in seconds
+ * @param in_eModuleId               ID of a module, in which an event occurred
+ * @param in_u32LocationInModule     Event instance - a specific and unique place in the module
+ * @param in_eSeverity               Event severity
+ * @param in_eType                   Event type
+ * @param in_u32AdditionalData       User defined data up to 4B used for event context
+ */
+static void EventHandler_ComposeAndSendReport(float64_t in_f64CurrentTimeInSeconds, Modules_Id_e in_eModuleId, uint32_t in_u32LocationInModule, EventHandler_Severity_e in_eSeverity, EventHandler_Type_e in_eType, uint32_t in_u32AdditionalData)
+{
+    uint8_t au8EventData[EVENT_DATA_SIZE_IN_BYTES];
+    uint8_t *pu8EventData = ((uint8_t *) &au8EventData);
+
+    Comm_SendEventReport(pu8EventData, EVENT_DATA_SIZE_IN_BYTES);
+    Storage_StoreEventReport(pu8EventData, EVENT_DATA_SIZE_IN_BYTES);
+
+    return;
+}
+
+/**
  * @brief Initializes all static arrays to correct values
  */
 void EventHandler_InitializeOnStart(void)
@@ -168,7 +190,7 @@ void EventHandler_InitializeOnStart(void)
             m_au32EventsCounter[u32IterSeverity][u32IterType] = 0U;
         }
 
-        abIsEnabledReporting[u32IterType] = E_TRUE;
+        m_abIsEnabledReporting[u32IterType] = E_TRUE;
     }
 
     return;
@@ -177,7 +199,7 @@ void EventHandler_InitializeOnStart(void)
 /**
  * @brief Initializes the static arrays, which would block events processing otherwise
  */
-void EventHandler_InitializeBeforeReset(void)
+static void EventHandler_InitializeBeforeReset(void)
 {
     uint32_t u32IterType = 0U;
 
@@ -231,22 +253,38 @@ boolean EventHandler_GetStandbyMode(EventHandler_Type_e in_eType)
 }
 
 /**
- * @brief Composes the event report (data), sends it and stores it
+ * @brief Gets, whether the event reporting is enabled / disabled for the selected event type
  *
- * @param in_f64CurrentTimeInSeconds Current time from system start in seconds
- * @param in_eModuleId               ID of a module, in which an event occurred
- * @param in_u32LocationInModule     Event instance - a specific and unique place in the module
- * @param in_eSeverity               Event severity
- * @param in_eType                   Event type
- * @param in_u32AdditionalData       User defined data up to 4B used for event context
+ * @param in_eType   Defined event type
+ *
+ * @return E_FALSE   The event report processing is disabled for the selected event type
+ * @return E_TRUE    The event report processing is active for the selected event type
  */
-void EventHandler_ComposeAndSendReport(float64_t in_f64CurrentTimeInSeconds, Modules_Id_e in_eModuleId, uint32_t in_u32LocationInModule, EventHandler_Severity_e in_eSeverity, EventHandler_Type_e in_eType, uint32_t in_u32AdditionalData)
+boolean EventHandler_GetEnabledReporting(EventHandler_Type_e in_eType)
 {
-    uint8_t au8EventData[EVENT_DATA_SIZE_IN_BYTES];
-    uint8_t *pu8EventData = ((uint8_t *) &au8EventData);
+    boolean bIsEnabledReporting = E_FALSE;
 
-    Comm_SendEventReport(pu8EventData, EVENT_DATA_SIZE_IN_BYTES);
-    Storage_StoreEventReport(pu8EventData, EVENT_DATA_SIZE_IN_BYTES);
+    if (EVENTHANDLER_NUMBER_OF_EVENT_TYPES > in_eType)
+    {
+        bIsEnabledReporting = m_abIsEnabledReporting[in_eType];
+    }
+
+    return bIsEnabledReporting;
+}
+
+/* SRS-013 */
+/**
+ * @brief Sets, whether the event reporting is enabled / disabled for each event type separately
+ *
+ * @param in_eType        Defined event type
+ * @param in_bIsEnabled   Enables or disables the event reporting for the selected event type
+ */
+void EventHandler_SetEnabledReporting(EventHandler_Type_e in_eType, boolean in_bIsEnabled)
+{
+    if (EVENTHANDLER_NUMBER_OF_EVENT_TYPES > in_eType)
+    {
+        m_abIsEnabledReporting[in_eType] = in_bIsEnabled;
+    }
 
     return;
 }

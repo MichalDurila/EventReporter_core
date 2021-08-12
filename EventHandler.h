@@ -25,10 +25,6 @@
 
 #define EVENTHANDLER_NUMBER_OF_EVENT_TYPES 5U
 
-/* SRS-013 */
-/* Variable that enables / disables the event reporting for each event type separately */
-boolean abIsEnabledReporting[EVENTHANDLER_NUMBER_OF_EVENT_TYPES];
-
 /* SRS-003 */
 /* Typedef containing all defined event severities */
 typedef enum
@@ -54,5 +50,7 @@ void EventHandler_GenerateEventReportUserData(Modules_Id_e in_eModuleId, uint32_
 void EventHandler_InitializeOnStart(void);
 uint32_t EventHandler_GetEventsCounter(EventHandler_Severity_e in_eSeverity, EventHandler_Type_e in_eType);
 boolean EventHandler_GetStandbyMode(EventHandler_Type_e in_eType);
+boolean EventHandler_GetEnabledReporting(EventHandler_Type_e in_eType);
+void EventHandler_SetEnabledReporting(EventHandler_Type_e in_eType, boolean in_bIsEnabled);
 
 #endif /* __EVENTHANDLER_H__ */
