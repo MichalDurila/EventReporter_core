@@ -158,13 +158,13 @@ void EventHandler_GenerateEventReportUserData(Modules_Id_e in_eModuleId, uint32_
         else
         {
             /* Someone forgot to change (increment) the definition of EVENTHANDLER_NUMBER_OF_EVENT_SEVERITIES when adding some new enums */
-            EventHandler_ComposeAndSendReport(f64CurrentTimeInSeconds, m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GENERATEEVENTREPORTUSERDATA_SEVERITIES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, DUMMY_USER_DATA);
+            EventHandler_ComposeAndSendReport(f64CurrentTimeInSeconds, m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GENERATEEVENTREPORTUSERDATA_SEVERITIES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, (uint32_t) in_eSeverity);
         }
     }
     else
     {
         /* Someone forgot to change (increment) the definition of EVENTHANDLER_NUMBER_OF_EVENT_TYPES when adding some new enums */
-        EventHandler_ComposeAndSendReport(f64CurrentTimeInSeconds, m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GENERATEEVENTREPORTUSERDATA_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, DUMMY_USER_DATA);
+        EventHandler_ComposeAndSendReport(f64CurrentTimeInSeconds, m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GENERATEEVENTREPORTUSERDATA_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, (uint32_t) in_eType);
     }
 
     return;
@@ -302,13 +302,13 @@ uint32_t EventHandler_GetEventsCounter(EventHandler_Severity_e in_eSeverity, Eve
         else
         {
             /* Someone may have forgotten to change (increment) the definition of EVENTHANDLER_NUMBER_OF_EVENT_TYPES when adding some new enums */
-            EventHandler_GenerateEventReport(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GETEVENTSCOUNTER_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS);
+            EventHandler_GenerateEventReportUserData(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GETEVENTSCOUNTER_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, (uint32_t) in_eType);
         }
     }
     else
     {
         /* Someone may have forgotten to change (increment) the definition of EVENTHANDLER_NUMBER_OF_EVENT_SEVERITIES when adding some new enums */
-        EventHandler_GenerateEventReport(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GETEVENTSCOUNTER_SEVERITIES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS);
+        EventHandler_GenerateEventReportUserData(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GETEVENTSCOUNTER_SEVERITIES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, (uint32_t) in_eSeverity);
     }
 
     return u32EventsCounter;
@@ -333,7 +333,7 @@ boolean EventHandler_GetStandbyMode(EventHandler_Type_e in_eType)
     else
     {
         /* Someone may have forgotten to change (increment) the definition of EVENTHANDLER_NUMBER_OF_EVENT_TYPES when adding some new enums */
-        EventHandler_GenerateEventReport(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GETSTANDBYMODE_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS);
+        EventHandler_GenerateEventReportUserData(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GETSTANDBYMODE_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, (uint32_t) in_eType);
     }
 
     return bIsStandbyMode;
@@ -358,7 +358,7 @@ boolean EventHandler_GetEnabledReporting(EventHandler_Type_e in_eType)
     else
     {
         /* Someone may have forgotten to change (increment) the definition of EVENTHANDLER_NUMBER_OF_EVENT_TYPES when adding some new enums */
-        EventHandler_GenerateEventReport(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GETENABLEDREPORTING_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS);
+        EventHandler_GenerateEventReportUserData(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_GETENABLEDREPORTING_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, (uint32_t) in_eType);
     }
 
     return bIsEnabledReporting;
@@ -380,7 +380,7 @@ void EventHandler_SetEnabledReporting(EventHandler_Type_e in_eType, boolean in_b
     else
     {
         /* Someone may have forgotten to change (increment) the definition of EVENTHANDLER_NUMBER_OF_EVENT_TYPES when adding some new enums */
-        EventHandler_GenerateEventReport(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_SETENABLEDREPORTING_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS);
+        EventHandler_GenerateEventReportUserData(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_EVENTHANDLER_SETENABLEDREPORTING_TYPES, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_UNUPDATEDCONSTANTS, (uint32_t) in_eType);
     }
 
     return;
