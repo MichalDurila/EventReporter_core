@@ -20,7 +20,9 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
 
-#define NULL                             ((void *)0)
+/* Some additional definitions of data types */
+#include "TypeDefinitions.h"
+
 #define COMMON_STARTING_INDEX_OF_ARRAY   0U
 #define COMMON_FLOAT64_SIZE_IN_BYTES     8U
 #define COMMON_UINT32_SIZE_IN_BYTES      4U
@@ -31,9 +33,5 @@ typedef enum
     E_FALSE = 0U,
     E_TRUE  = 1U
 } boolean;
-
-typedef unsigned char uint8_t;
-typedef unsigned int uint32_t;
-typedef double float64_t;
 
 #endif /* __COMMON_H__ */

@@ -31,11 +31,4 @@
  */
 float64_t Timing_GetTime(void);
 
-/**
- * @brief Sets the amount of time elapsed from the start of the system
- *
- * @param in_f64Time   Time in seconds to be set
- */
-void Timing_SetTime(float64_t in_f64Time);
-
 #endif /* __TIMING_H__ */
