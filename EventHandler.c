@@ -32,9 +32,11 @@
 #define UNINITIALIZED_COUNTER            0U
 #define EXTRACT_ONE_BYTE                 0xFFU
 
+/* SRS-005 */
 /* Module ID assignment */
 static const Modules_Id_e m_eModuleId = E_MODULES_ID_EVENTHANDLER;
 
+/* SRS-005 */
 /* Typedef containing all defined event instances in this module */
 typedef enum
 {
@@ -65,6 +67,7 @@ static void EventHandler_ComposeAndSendReport(float64_t in_f64CurrentTimeInSecon
 static void EventHandler_Convert32BitNumberToByteArray(uint32_t in_u32Number, uint8_t **inout_pu8Data, const uint8_t * const in_pu8DataBoundary);
 
 
+/* SRS-005 */
 /**
  * @brief Handles the event and creates a report
  *
@@ -79,6 +82,7 @@ void EventHandler_GenerateEventReport(Modules_Id_e in_eModuleId, uint32_t in_u32
     return;
 }
 
+/* SRS-005 */
 /* SRS-006 */
 /**
  * @brief Handles the event and creates a report
