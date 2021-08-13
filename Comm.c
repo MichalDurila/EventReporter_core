@@ -23,8 +23,6 @@
 #include <stdio.h>
 
 
-#define EXPECTED_EVENT_DATA_SIZE_IN_BYTES 28U
-
 /* Module ID assignment */
 static const Modules_Id_e m_eModuleId = E_MODULES_ID_COMM;
 
@@ -37,14 +35,16 @@ static const Modules_Id_e m_eModuleId = E_MODULES_ID_COMM;
  */
 void Comm_SendEventReport(const uint8_t *in_pu8EventData, uint32_t in_u32DataSize)
 {
-    if (EXPECTED_EVENT_DATA_SIZE_IN_BYTES == in_u32DataSize)
+    uint32_t u32IterBytes = COMMON_STARTING_INDEX_OF_ARRAY;
+
+    printf("Comm_SendEventReport: Module ID = %u, Received message = 0x", m_eModuleId);
+
+    for (; in_u32DataSize > u32IterBytes; u32IterBytes++)
     {
-        printf("Comm_SendEventReport: Module ID = %u\n", m_eModuleId);
+        printf("%X ", *(in_pu8EventData + u32IterBytes));
     }
-    else
-    {
-        printf("Comm_SendEventReport: Failure: EXPECTED_EVENT_DATA_SIZE_IN_BYTES does not match in_u32DataSize\n");
-    }
+
+    printf("\n");
 
     return;
 }

@@ -30,6 +30,7 @@ static const Modules_Id_e m_eModuleId = E_MODULES_ID_SYSTEMRESET;
  */
 void SystemReset_ResetSystem(void)
 {
+    /* Just to suppress a warning during compilation */
     if (E_MODULES_ID_SYSTEMRESET == m_eModuleId)
     {
         ;

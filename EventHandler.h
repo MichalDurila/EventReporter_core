@@ -23,7 +23,8 @@
 #include "Common.h"
 #include "Modules.h"
 
-#define EVENTHANDLER_NUMBER_OF_EVENT_TYPES 5U
+#define EVENTHANDLER_NUMBER_OF_EVENT_SEVERITIES 3U
+#define EVENTHANDLER_NUMBER_OF_EVENT_TYPES      5U
 
 /* SRS-003 */
 /* Typedef containing all defined event severities */

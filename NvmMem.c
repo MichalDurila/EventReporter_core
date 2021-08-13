@@ -20,11 +20,11 @@
 #include "NvmMem.h"
 #include "Modules.h"
 #include "EventHandler.h"
-#include "Common.h"
 
 
 #define NVM_ADDRESS_LOW_LIM     0x00001000
 #define NVM_ADDRESS_HIGH_LIM    0x00200000
+#define TEST_USER_DATA          8U
 
 /* Module ID assignment */
 static const Modules_Id_e m_eModuleId = E_MODULES_ID_NVMMEM;
@@ -50,7 +50,7 @@ void NvmMem_Write(uint32_t in_u32Address, const uint8_t *in_pu8Data, uint32_t in
     /* Address range check */
     if ((NVM_ADDRESS_LOW_LIM > in_u32Address) || (NVM_ADDRESS_HIGH_LIM < in_u32Address))
     {
-        EventHandler_GenerateEventReportUserData(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_NVMMEM_WRITE_ADDRESS, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_ADDRESSRANGE, 8U);
+        EventHandler_GenerateEventReportUserData(m_eModuleId, (uint32_t) E_EVENT_INSTANCE_NVMMEM_WRITE_ADDRESS, E_EVENTHANDLER_SEVERITY_NORMAL, E_EVENTHANDLER_TYPE_ADDRESSRANGE, TEST_USER_DATA);
         return;
     }
 

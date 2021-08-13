@@ -20,7 +20,11 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
 
-#define NULL ((void *)0)
+#define NULL                             ((void *)0)
+#define COMMON_STARTING_INDEX_OF_ARRAY   0U
+#define COMMON_FLOAT64_SIZE_IN_BYTES     8U
+#define COMMON_UINT32_SIZE_IN_BYTES      4U
+#define COMMON_BYTE_SIZE_IN_BITS         8U
 
 typedef enum
 {
